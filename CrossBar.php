@@ -1,12 +1,16 @@
 <?php
 
-
+require_once('Logger.php');
 
 class CrossBar {
 
+	private $log;
+
 	function CrossBar( $options ) {
 		$this->force_no_decode = false;	
-		$this->debug = true;	
+		$this->debug = true;
+		$this->verbose = false;
+		$this->log = new Logger();
 		$this->is_authenticated = false;	
 		foreach($options as $key => $value) $this->$key = $value; 
 		$auth = array();
@@ -15,14 +19,11 @@ class CrossBar {
 
 
 			if( isset($this->usermd5) ) {
-				$auth = $this->send("PUT","/v1/user_auth",'{"data":{"realm": "'.$this->realm.'", "credentials": "'.$this->usermd5.'" }}');
-				//$this->log("PUT","/v1/user_auth",'{"data":{"realm": "'.$this->realm.'", "credentials": "'.$this->usermd5.'" }}');
+				$auth = $this->send("PUT","/v1/user_auth",'{"data":{"account_name": "'.$this->account_name.'", "credentials": "'.$this->usermd5.'" }}');
 			} else {
 				$auth = $this->send("PUT","/v1/api_auth",'{"data":{"api_key": "'.$this->api_key.'" }}');
 			}
 			$this->auth = $auth;
-			//$account_id = $auth['data']['account_id'];
-			//if( $auth['status'] == 'success' ) $this->xauth = $auth['auth_token'];
 			if( $auth['status'] == 'success' ) {
 				$this->is_authenticated = true;	
 				$this->xauth = $auth['auth_token'];
@@ -32,7 +33,6 @@ class CrossBar {
 				$this->log("auth token: ".$auth['auth_token']);
 				
 			} else {
-				
 				$this->log("API Key failure");
 			}
 		} /*else {
@@ -44,7 +44,9 @@ class CrossBar {
 
 	}
 	function log( $logthis ) {
-		echo $logthis."\n";
+		if($this->verbose) {
+			echo $logthis."\n";
+		}
 	}
 
 
@@ -177,9 +179,11 @@ class CrossBar {
 		$nums = array();
 		foreach( $test as $key => $data ) {
 			//$t2 = $XBAR->get_callflow($data['id']);
-			foreach( $data['numbers'] as $num ) {
-				$nums[$num] = $data['id'];	
-			} 
+			if(isset($data['numbers'])) {
+				foreach( $data['numbers'] as $num ) {
+					$nums[$num] = $data['id'];	
+				} 
+			}
 		}
 
 		return($nums);
@@ -222,7 +226,16 @@ class CrossBar {
 	function get_device_by_name( $name, $account_id = null ) {
 		if( $account_id == null ) $account_id = $this->use_account_id;
 		$response = $this->get('devices',null,array('name'=>$name),$account_id);	
-		return($response[0]);
+		
+		// If the device has not been created this returns an empty response
+		if(empty($response)) {
+			$response['id'] = null;
+			return $response;
+		}
+		
+		return $response[0];
+		
+		//return($response[0]);
 	}
 
 	function get_devices_by_owner( $owner_id, $account_id = null ) {
@@ -273,8 +286,17 @@ class CrossBar {
 
 	function get_vmbox_by_name( $name,  $account_id = null ) { 
 		if( $account_id == null ) $account_id = $this->use_account_id;
-		$response = $this->get('vmboxes',null,array('name'=>$name),$account_id);	
-		return($response[0]);
+		$response = $this->get('vmboxes',null,array('name'=>rawurlencode($name)),$account_id);	
+		
+		// If the device has not been created this returns an empty response
+		if(empty($response)) {
+			$response['id'] = null;
+			return $response;
+		}
+		
+		return $response[0];
+		
+		//return($response[0]);
 	}
 
 	
@@ -295,9 +317,18 @@ class CrossBar {
 
 	function get_user_by_name( $username, $account_id = null ) {
 
-		$response = $this->get('users',null,array('username'=>$username),$account_id);	
-		return($response[0]);
-		return($response);
+		$response = $this->get('users',null,array('username'=>rawurlencode($username)),$account_id);
+		//return($response[0]);
+		//return($response);
+		
+		// If the user has not been created this returns an empty response
+		if(empty($response)) {
+			$response['id'] = null;
+			return $response;
+		}
+		
+		return $response[0];
+		
 		/*
 		if( $account_id == null ) $account_id = $this->use_account_id;
 		$response = $this->send("GET","/v1/accounts/{$account_id}/users?filter_username=$username");
@@ -750,16 +781,28 @@ class CrossBar {
 			}
 
 		}
-		if( !stristr($this->headers,"200 OK") && !stristr($this->headers,"201 Created")) { 
-
-			$this->log("{$bldpur}>>>>: $method $url HTTP/1.0 ($type) len:".strlen($post_data)."$txtrst \n");
-			if( $post_data && $type == 'application/json' ) $this->log("{$bldpur}>>>>: ".trim($post_data)."\n");
-			$this->log("{$bldylw}<<<<: ".trim($hexp[0])." µT=".( $mend - $mstart )." request_id:$REQUEST_ID{$txtrst}\n");
-			$this->log("{$bldylw}<<<<: ".$this->headers."{$txtrst}");
-			$this->log("{$bldylw}<<<<: ".$this->body."{$txtrst}");
-
-
+		if( !stristr($this->headers,"200 OK") && !stristr($this->headers,"201 Created") && $this->debug) {
+		
+			$bodyJson = json_decode($this->body, true);
+			if(isset($bodyJson['data']['numbers']['unique']) && stristr($bodyJson['data']['numbers']['unique'], 'exists in callflow')) {
+				// Do nothing
+			}
+			else {
+				$this->log->log("{$bldpur}>>>>: $method $url HTTP/1.0 ($type) len:".strlen($post_data)."$txtrst");
+				if( $post_data && $type == 'application/json' )
+					$this->log->log("{$bldpur}>>>>: ".trim($post_data));
+				$this->log->log("{$bldylw}<<<<: ".trim($hexp[0])." µT=".( $mend - $mstart )." request_id:$REQUEST_ID{$txtrst}");
+				$this->log->log("{$bldylw}<<<<: ".$this->headers."{$txtrst}");
+				$this->log->log("{$bldylw}<<<<: ".$this->body."{$txtrst}.\n\n");
+			}
 		}
+		// Log the outgoing posts always
+		else {
+			$this->log->log("{$bldpur}>>>>: $method $url HTTP/1.0 ($type) len:".strlen($post_data)."$txtrst");
+			if( $post_data && $type == 'application/json' )
+				$this->log->log("{$bldpur}>>>>: ".trim($post_data));
+		}
+		
 
 		if( stristr($this->headers,"401 Unauthorized") || stristr($this->headers,"400 Not Found") || stristr($this->headers,"500 Internal Server") ) { 
 				//$this->log("{$bldpur}Found 401{$txtrst}");

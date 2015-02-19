@@ -1,0 +1,46 @@
+[1;35m>>>>: PUT /v1/user_auth HTTP/1.0 (application/json) len:90[0m
+[1;35m>>>>: {"data":{"account_name": "voxterdev", "credentials": "390eb1cbf4dc29546b9faac9a0d4d82a" }}
+[1;35m>>>>: GET /v1/accounts/b099e24843a5073599dd1674f3a34914/users?filter_username=1008 HTTP/1.0 (application/json) len:0[0m
+[1;35m>>>>: GET /v1/accounts/b099e24843a5073599dd1674f3a34914/devices?filter_name=1008 HTTP/1.0 (application/json) len:0[0m
+[1;35m>>>>: GET /v1/accounts/b099e24843a5073599dd1674f3a34914/vmboxes?filter_name=1008 HTTP/1.0 (application/json) len:0[0m
+[1;35m>>>>: GET /v1/accounts/b099e24843a5073599dd1674f3a34914/callflows HTTP/1.0 (application/json) len:0[0m
+[1;35m>>>>: PUT /v1/accounts/b099e24843a5073599dd1674f3a34914/users HTTP/1.0 (application/json) len:334[0m
+[1;35m>>>>: {"data":{"username":"1008","first_name":"John","last_name":"Smith","priv_level":"user","email":"John@smith.coim","password":"54123","verified":false,"enabled":true,"timezone":"America\/Vancouver","call_forward":{"enabled":false,"number":"","require_keypress":false,"keep_caller_id":true,"substitute":false,"direct_calls_only":false}}}
+[1;35m>>>>: GET /v1/accounts/b099e24843a5073599dd1674f3a34914/users?filter_username=1008 HTTP/1.0 (application/json) len:0[0m
+[1;35m>>>>: PUT /v1/accounts/b099e24843a5073599dd1674f3a34914/devices/ HTTP/1.0 (application/json) len:576[0m
+[1;35m>>>>: {"data":{"device_type":"sip_device","name":"1008","enabled":true,"provision":"","suppress_unregister_notifications":false,"call_forward":{"enabled":false,"number":"","require_keypress":false,"keep_caller_id":true,"substitute":false,"ignore_early_media":true,"direct_calls_only":false},"media":{"fax":{"option":"auto"},"bypass_media":false,"audio":{"codecs":["PCMA","PCMU"]}},"sip":{"method":"password","invite_format":"username","username":"1008","password":"c94d3c4742cb3841","expire_seconds":300,"registration_expiration":360},"owner_id":"f1db47fb7ccb62b09ededbdd4d93c406"}}
+[1;35m>>>>: PUT /v1/accounts/b099e24843a5073599dd1674f3a34914/vmboxes/ HTTP/1.0 (application/json) len:239[0m
+[1;35m>>>>: {"data":{"name":"1008","mailbox":"1008","pin":"54123","timezone":"America\/Vancouver","check_if_owner":true,"require_pin":true,"skip_greeting":false,"skip_instructions":false,"is_setup":false,"owner_id":"f1db47fb7ccb62b09ededbdd4d93c406"}}
+[1;35m>>>>: GET /v1/accounts/b099e24843a5073599dd1674f3a34914/vmboxes?filter_name=1008 HTTP/1.0 (application/json) len:0[0m
+[1;35m>>>>: GET /v1/accounts/b099e24843a5073599dd1674f3a34914/devices?filter_name=1008 HTTP/1.0 (application/json) len:0[0m
+[1;35m>>>>: PUT /v1/accounts/b099e24843a5073599dd1674f3a34914/callflows HTTP/1.0 (application/json) len:206[0m
+[1;35m>>>>: {"data":{"numbers":["1008"],"flow":{"data":{"id":"f1db47fb7ccb62b09ededbdd4d93c406"},"module":"user","children":{"_":{"data":{"id":"a15e961187c7a4c67f2b080fb98af7a3"},"module":"voicemail","children":{}}}}}}
+[1;35m>>>>: GET /v1/accounts/b099e24843a5073599dd1674f3a34914/users?filter_username=1009 HTTP/1.0 (application/json) len:0[0m
+[1;35m>>>>: GET /v1/accounts/b099e24843a5073599dd1674f3a34914/devices?filter_name=1009 HTTP/1.0 (application/json) len:0[0m
+[1;35m>>>>: GET /v1/accounts/b099e24843a5073599dd1674f3a34914/vmboxes?filter_name=1009 HTTP/1.0 (application/json) len:0[0m
+[1;35m>>>>: GET /v1/accounts/b099e24843a5073599dd1674f3a34914/callflows HTTP/1.0 (application/json) len:0[0m
+[1;35m>>>>: PUT /v1/accounts/b099e24843a5073599dd1674f3a34914/users HTTP/1.0 (application/json) len:330[0m
+[1;35m>>>>: {"data":{"username":"1009","first_name":"Joan","last_name":"Doe ","priv_level":"user","email":"Joan@doe.com","password":"54123","verified":false,"enabled":true,"timezone":"America\/Vancouver","call_forward":{"enabled":false,"number":"","require_keypress":false,"keep_caller_id":true,"substitute":false,"direct_calls_only":false}}}
+[1;35m>>>>: GET /v1/accounts/b099e24843a5073599dd1674f3a34914/users?filter_username=1009 HTTP/1.0 (application/json) len:0[0m
+[1;35m>>>>: PUT /v1/accounts/b099e24843a5073599dd1674f3a34914/devices/ HTTP/1.0 (application/json) len:575[0m
+[1;35m>>>>: {"data":{"device_type":"softphone","name":"1009","enabled":true,"provision":"","suppress_unregister_notifications":false,"call_forward":{"enabled":false,"number":"","require_keypress":false,"keep_caller_id":true,"substitute":false,"ignore_early_media":true,"direct_calls_only":false},"media":{"fax":{"option":"auto"},"bypass_media":false,"audio":{"codecs":["PCMA","PCMU"]}},"sip":{"method":"password","invite_format":"username","username":"1009","password":"6448f4eeb21024e8","expire_seconds":300,"registration_expiration":360},"owner_id":"48252d5bd1c5a4353251954eb62331d7"}}
+[1;35m>>>>: PUT /v1/accounts/b099e24843a5073599dd1674f3a34914/vmboxes/ HTTP/1.0 (application/json) len:239[0m
+[1;35m>>>>: {"data":{"name":"1009","mailbox":"1009","pin":"54123","timezone":"America\/Vancouver","check_if_owner":true,"require_pin":true,"skip_greeting":false,"skip_instructions":false,"is_setup":false,"owner_id":"48252d5bd1c5a4353251954eb62331d7"}}
+[1;35m>>>>: GET /v1/accounts/b099e24843a5073599dd1674f3a34914/vmboxes?filter_name=1009 HTTP/1.0 (application/json) len:0[0m
+[1;35m>>>>: GET /v1/accounts/b099e24843a5073599dd1674f3a34914/devices?filter_name=1009 HTTP/1.0 (application/json) len:0[0m
+[1;35m>>>>: PUT /v1/accounts/b099e24843a5073599dd1674f3a34914/callflows HTTP/1.0 (application/json) len:206[0m
+[1;35m>>>>: {"data":{"numbers":["1009"],"flow":{"data":{"id":"48252d5bd1c5a4353251954eb62331d7"},"module":"user","children":{"_":{"data":{"id":"8bdbf3bb0bdacf1640ad17f0db8b471c"},"module":"voicemail","children":{}}}}}}
+[1;35m>>>>: GET /v1/accounts/b099e24843a5073599dd1674f3a34914/users?filter_username=10101 HTTP/1.0 (application/json) len:0[0m
+[1;35m>>>>: GET /v1/accounts/b099e24843a5073599dd1674f3a34914/devices?filter_name=10101 HTTP/1.0 (application/json) len:0[0m
+[1;35m>>>>: GET /v1/accounts/b099e24843a5073599dd1674f3a34914/vmboxes?filter_name=10101 HTTP/1.0 (application/json) len:0[0m
+[1;35m>>>>: GET /v1/accounts/b099e24843a5073599dd1674f3a34914/callflows HTTP/1.0 (application/json) len:0[0m
+[1;35m>>>>: GET /v1/accounts/b099e24843a5073599dd1674f3a34914/callflows/d25055be14afa620853650a00f4c3535 HTTP/1.0 (application/json) len:0[0m
+[1;35m>>>>: DELETE /v1/accounts/b099e24843a5073599dd1674f3a34914/callflows/d25055be14afa620853650a00f4c3535 HTTP/1.0 (application/json) len:0[0m
+[1;35m>>>>: PUT /v1/accounts/b099e24843a5073599dd1674f3a34914/users HTTP/1.0 (application/json) len:340[0m
+[1;35m>>>>: {"data":{"username":"10101","first_name":"salmon","last_name":"hunter","priv_level":"user","email":"salmon@hunter.com","password":"54123","verified":false,"enabled":true,"timezone":"America\/Vancouver","call_forward":{"enabled":false,"number":"","require_keypress":false,"keep_caller_id":true,"substitute":false,"direct_calls_only":false}}}
+[1;35m>>>>: GET /v1/accounts/b099e24843a5073599dd1674f3a34914/users?filter_username=10101 HTTP/1.0 (application/json) len:0[0m
+[1;35m>>>>: PUT /v1/accounts/b099e24843a5073599dd1674f3a34914/devices/ HTTP/1.0 (application/json) len:578[0m
+[1;35m>>>>: {"data":{"device_type":"sip_device","name":"10101","enabled":true,"provision":"","suppress_unregister_notifications":false,"call_forward":{"enabled":false,"number":"","require_keypress":false,"keep_caller_id":true,"substitute":false,"ignore_early_media":true,"direct_calls_only":false},"media":{"fax":{"option":"auto"},"bypass_media":false,"audio":{"codecs":["PCMA","PCMU"]}},"sip":{"method":"password","invite_format":"username","username":"10101","password":"917836e6ed8e65ed","expire_seconds":300,"registration_expiration":360},"owner_id":"78274d798551a4c2899d9f1de03b548b"}}
+[1;35m>>>>: GET /v1/accounts/b099e24843a5073599dd1674f3a34914/devices?filter_name=10101 HTTP/1.0 (application/json) len:0[0m
+[1;35m>>>>: PUT /v1/accounts/b099e24843a5073599dd1674f3a34914/callflows HTTP/1.0 (application/json) len:118[0m
+[1;35m>>>>: {"data":{"numbers":["10101"],"flow":{"data":{"id":"78274d798551a4c2899d9f1de03b548b"},"module":"user","children":{}}}}
